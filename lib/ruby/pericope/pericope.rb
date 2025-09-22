@@ -163,7 +163,7 @@ module Ruby
 
         count = 0
         @ranges.each do |range|
-          next unless chapter >= range[:start_chapter] && chapter <= range[:end_chapter]
+          next unless chapter.between?(range[:start_chapter], range[:end_chapter])
 
           start_verse = chapter == range[:start_chapter] ? range[:start_verse] : 1
           end_verse = chapter == range[:end_chapter] ? range[:end_verse] : @book.verse_count(chapter)
@@ -186,7 +186,7 @@ module Ruby
             end
           end
         end
-        result.each { |chapter, verses| verses.sort! }
+        result.each_value(&:sort!)
         result
       end
 
@@ -202,7 +202,7 @@ module Ruby
 
         return 0.0 if total_possible.zero?
 
-        included_verses.to_f / total_possible.to_f
+        included_verses.to_f / total_possible
       end
 
       def gaps
@@ -235,8 +235,7 @@ module Ruby
         end
 
         # Find missing verses
-        missing = possible_verses.reject { |verse| all_verses.include?(verse) }
-        missing
+        possible_verses.reject { |verse| all_verses.include?(verse) }
       end
 
       def continuous_ranges
@@ -269,7 +268,8 @@ module Ruby
             if first_verse.chapter == last_verse.chapter
               Pericope.new("#{@book.code} #{first_verse.chapter}:#{first_verse.verse}-#{last_verse.verse}")
             else
-              Pericope.new("#{@book.code} #{first_verse.chapter}:#{first_verse.verse}-#{last_verse.chapter}:#{last_verse.verse}")
+              range_str = "#{first_verse.chapter}:#{first_verse.verse}-#{last_verse.chapter}:#{last_verse.verse}"
+              Pericope.new("#{@book.code} #{range_str}")
             end
           end
         end
@@ -390,8 +390,8 @@ module Ruby
       def normalize
         return self if @ranges.empty?
 
-        # Convert to verses, sort, and rebuild ranges
-        verses = to_a.sort
+        # Convert to verses, deduplicate, sort, and rebuild ranges
+        verses = to_a.uniq.sort
         verses_to_pericope(verses)
       end
 
@@ -468,34 +468,36 @@ module Ruby
       def parse_ranges(range_text)
         # Split on commas for multiple ranges
         range_parts = range_text.split(",").map(&:strip)
+        current_chapter = nil
 
         range_parts.each do |part|
-          parse_single_range(part)
+          current_chapter = parse_single_range(part, current_chapter)
         end
       end
 
-      def parse_single_range(range_text)
+      def parse_single_range(range_text, current_chapter = nil)
         # Handle different range formats:
         # "1:1" - single verse
         # "1:1-5" - verse range in same chapter
         # "1:1-2:5" - cross-chapter range
+        # "3" - verse in current chapter (when current_chapter is set)
 
         if range_text.include?("-")
           # Range
           start_part, end_part = range_text.split("-", 2).map(&:strip)
-          start_chapter, start_verse = parse_verse_reference(start_part)
+          start_chapter, start_verse = parse_verse_reference(start_part, current_chapter)
 
           if end_part.include?(":")
             # Cross-chapter range like "1:1-2:5"
-            end_chapter, end_verse = parse_verse_reference(end_part)
+            end_chapter, end_verse = parse_verse_reference(end_part, start_chapter)
           else
-            # Same chapter range like "1:1-5"
+            # Same chapter range like "1:1-5" or "5-7" (in current chapter)
             end_chapter = start_chapter
             end_verse = end_part.to_i
           end
         else
           # Single verse
-          start_chapter, start_verse = parse_verse_reference(range_text)
+          start_chapter, start_verse = parse_verse_reference(range_text, current_chapter)
           end_chapter = start_chapter
           end_verse = start_verse
         end
@@ -506,11 +508,18 @@ module Ruby
           end_chapter: end_chapter,
           end_verse: end_verse
         }
+
+        # Return the chapter for context in next iteration
+        start_chapter
       end
 
-      def parse_verse_reference(verse_text)
+      def parse_verse_reference(verse_text, current_chapter = nil)
         if verse_text.include?(":")
           chapter, verse = verse_text.split(":", 2).map(&:to_i)
+        elsif current_chapter
+          # If we have a current chapter context, treat this as a verse in that chapter
+          chapter = current_chapter
+          verse = verse_text.to_i
         else
           # Assume it's just a chapter
           chapter = verse_text.to_i

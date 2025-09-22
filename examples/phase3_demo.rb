@@ -4,7 +4,7 @@
 # Demonstration of Phase 3 functionality
 # Advanced Mathematical Operations and Set Operations
 
-require_relative '../lib/ruby/pericope'
+require_relative "../lib/ruby/pericope"
 
 puts "Ruby Pericope Library - Phase 3 Demonstration"
 puts "=" * 50
@@ -33,7 +33,7 @@ puts "Pericope 3 verses in chapter 1: #{pericope3.verses_in_chapter(1)}"
 puts "\n2.2 Chapters in Range Breakdown:"
 chapters = pericope3.chapters_in_range
 chapters.each do |chapter, verses|
-  puts "Chapter #{chapter}: verses #{verses.join(', ')}"
+  puts "Chapter #{chapter}: verses #{verses.join(", ")}"
 end
 
 puts "\n2.3 Density Calculations:"
@@ -45,7 +45,7 @@ gaps = pericope3.gaps
 if gaps.empty?
   puts "No gaps found in pericope 3"
 else
-  puts "Gaps in pericope 3: #{gaps.map(&:to_s).join(', ')}"
+  puts "Gaps in pericope 3: #{gaps.map(&:to_s).join(", ")}"
 end
 
 puts "\n2.5 Continuous Range Breakdown:"
@@ -141,11 +141,11 @@ puts "Density in Genesis 1: #{(final_text.density * 100).round(1)}%"
 # Find any gaps
 gaps = final_text.gaps
 if gaps.any?
-  puts "Gaps in sermon text: #{gaps.map(&:to_s).join(', ')}"
+  puts "Gaps in sermon text: #{gaps.map(&:to_s).join(", ")}"
 else
   puts "No gaps in final sermon text"
 end
 
-puts "\n" + "=" * 50
+puts "\n#{"=" * 50}"
 puts "Phase 3 demonstration complete!"
 puts "All advanced mathematical operations and set operations are working!"
