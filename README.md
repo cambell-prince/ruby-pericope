@@ -11,7 +11,7 @@ A Ruby library for parsing, manipulating, and working with biblical references (
 - **Text Extraction**: Extract biblical references from natural text
 - **Multiple Output Formats**: Canonical, full name, and abbreviated formats
 - **Robust Error Handling**: Comprehensive error classes for different failure modes
-- **Full Test Coverage**: 127+ test cases covering all functionality
+- **Full Test Coverage**: Comprehensive test suite covering all functionality
 
 ## Installation
 
@@ -108,6 +108,83 @@ puts pericope.to_s(:full_name)     # "Genesis 1:1-3"
 puts pericope.to_s(:abbreviated)   # "GEN 1:1-3"
 ```
 
+### Mathematical Operations
+
+The library provides advanced mathematical operations for analyzing pericopes:
+
+```ruby
+pericope = Ruby::Pericope::Pericope.new("MAT 5:1,3,5-10,12")
+
+# Basic metrics
+puts pericope.verse_count        # 8 (total verses included)
+puts pericope.range_count        # 4 (number of separate ranges)
+puts pericope.density            # 0.32 (proportion of verses in spanned chapters)
+
+# Chapter analysis
+puts pericope.verses_in_chapter(5)  # 8 (verses in chapter 5)
+chapters = pericope.chapters_in_range
+# Returns: {5 => [1, 3, 5, 6, 7, 8, 9, 10, 12]}
+
+# Gap analysis
+gaps = pericope.gaps             # [MAT 5:2, MAT 5:4, MAT 5:11]
+puts "Missing verses: #{gaps.map(&:to_s).join(', ')}"
+
+# Continuous range breakdown
+continuous = pericope.continuous_ranges
+# Returns array of Pericope objects for each continuous section
+```
+
+### Set Operations
+
+Pericopes support mathematical set operations for combining and comparing biblical references:
+
+```ruby
+# Create two overlapping pericopes
+a = Ruby::Pericope::Pericope.new("MAT 5:1-10")
+b = Ruby::Pericope::Pericope.new("MAT 5:5-15")
+
+# Union (combine all verses)
+union = a.union(b)               # "MAT 5:1-15"
+
+# Intersection (common verses only)
+intersection = a.intersection(b) # "MAT 5:5-10"
+
+# Subtraction (verses in a but not in b)
+difference = a.subtract(b)       # "MAT 5:1-4"
+
+# Complement (all other verses in the book/scope)
+complement = a.complement        # All Matthew verses except 5:1-10
+
+# Normalization (remove duplicates and merge adjacent ranges)
+normalized = a.normalize
+
+# Expansion and contraction
+expanded = a.expand(2, 3)        # Add 2 verses before, 3 after
+contracted = a.contract(1, 2)    # Remove 1 verse from start, 2 from end
+```
+
+### Comparison Operations
+
+Compare pericopes with various relationship methods:
+
+```ruby
+a = Ruby::Pericope::Pericope.new("MAT 5:1-5")
+b = Ruby::Pericope::Pericope.new("MAT 5:3-8")
+c = Ruby::Pericope::Pericope.new("MAT 5:6-10")
+
+# Overlap detection
+puts a.intersects?(b)    # true (they share verses 3-5)
+puts a.overlaps?(b)      # true (alias for intersects?)
+
+# Containment
+puts a.contains?(Ruby::Pericope::Pericope.new("MAT 5:2-4"))  # true
+
+# Adjacency and ordering
+puts a.adjacent_to?(c)   # true (5:5 is next to 5:6)
+puts a.precedes?(c)      # true (a comes before c)
+puts c.follows?(a)       # true (c comes after a)
+```
+
 ### Error Handling
 
 ```ruby
@@ -123,6 +200,13 @@ rescue Ruby::Pericope::InvalidChapterError => e
   puts e.message # "Invalid chapter 0 for book GEN"
 end
 ```
+
+## Examples
+
+For more comprehensive examples and demonstrations, see the [examples directory](examples/):
+
+- [Basic Usage Examples](examples/basic_usage.rb) - Fundamental operations and common use cases
+- [Advanced Features Demo](examples/phase3_demo.rb) - Mathematical operations, set operations, and comparisons
 
 ## Development
 
