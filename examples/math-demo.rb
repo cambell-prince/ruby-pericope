@@ -3,6 +3,95 @@
 
 # Demonstration of Phase 3 functionality
 # Advanced Mathematical Operations and Set Operations
+#
+# Expected Output:
+# Ruby Pericope Library - Phase 3 Demonstration
+# ==================================================
+#
+# 1. Creating Example Pericopes
+# ------------------------------
+# Pericope 1: GEN 1:1-10 (10 verses)
+# Pericope 2: GEN 1:5-15 (11 verses)
+# Pericope 3: GEN 1:1,1:3,1:5-7,1:10 (6 verses)
+# Pericope 4: GEN 1:20-25 (6 verses)
+#
+# 2. Advanced Mathematical Operations
+# ----------------------------------------
+#
+# 2.1 Verses in Chapter Analysis:
+# Pericope 3 verses in chapter 1: 6
+#
+# 2.2 Chapters in Range Breakdown:
+# Chapter 1: verses 1, 3, 5, 6, 7, 10
+#
+# 2.3 Density Calculations:
+# Pericope 1 density: 32.3%
+# Pericope 3 density: 19.4%
+#
+# 2.4 Gap Identification:
+# Gaps in pericope 3: GEN 1:2, GEN 1:4, GEN 1:8, GEN 1:9
+#
+# 2.5 Continuous Range Breakdown:
+# Pericope 3 broken into continuous ranges:
+#   1. GEN 1:1 (1 verses)
+#   2. GEN 1:3 (1 verses)
+#   3. GEN 1:5-7 (3 verses)
+#   4. GEN 1:10 (1 verses)
+#
+# 3. Comparison Methods
+# -------------------------
+#
+# 3.1 Intersection Tests:
+# Pericope 1 intersects Pericope 2: true
+# Pericope 1 intersects Pericope 4: false
+#
+# 3.2 Containment Tests:
+# Pericope 1 contains GEN 1:3-7: true
+# GEN 1:3-7 contains Pericope 1: false
+#
+# 3.3 Positional Tests:
+# Pericope 1 precedes Pericope 4: true
+# Pericope 4 follows Pericope 1: true
+# GEN 1:1-5 adjacent to GEN 1:6-10: true
+#
+# 4. Set Operations (Pericope Math)
+# -----------------------------------
+#
+# 4.1 Union Operations:
+# GEN 1:1-10 ∪ GEN 1:5-15 = GEN 1:1-15
+#
+# 4.2 Intersection Operations:
+# GEN 1:1-10 ∩ GEN 1:5-15 = GEN 1:5-10
+#
+# 4.3 Subtraction Operations:
+# GEN 1:1-10 - GEN 1:5-15 = GEN 1:1-4
+#
+# 4.4 Normalization:
+# GEN 1:1-3,1:4-6,1:7 normalized = GEN 1:1-7
+#
+# 4.5 Range Expansion:
+# GEN 1:1-10 expanded by (2,3) = GEN 1:1-13
+#
+# 4.6 Range Contraction:
+# GEN 1:1-10 contracted by (2,2) = GEN 1:3-8
+#
+# 4.7 Complement Operation:
+# Complement of GEN 1:1-5 within GEN 1:1-10 = GEN 1:6-10
+#
+# 5. Complex Example: Sermon Planning
+# ----------------------------------------
+# Original sermon text: GEN 1:1-5,1:10-15,1:20-25
+# Additional verses to consider: GEN 1:6-9
+# ✗ Additional verses are not adjacent
+# Combined text: GEN 1:1-15,1:20-25
+# Final sermon text: GEN 1:1-15,1:20-25
+# Total verses: 21
+# Density in Genesis 1: 67.7%
+# Gaps in sermon text: GEN 1:16, GEN 1:17, GEN 1:18, GEN 1:19
+#
+# ==================================================
+# Phase 3 demonstration complete!
+# All advanced mathematical operations and set operations are working!
 
 require_relative "../lib/ruby/pericope"
 
