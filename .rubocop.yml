@@ -1,0 +1,50 @@
+AllCops:
+  TargetRubyVersion: 3.4
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'tmp/**/*'
+
+require:
+  - rubocop-rspec
+
+plugins:
+  - rubocop-rake
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '*.gemspec'
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+# Disable external plugin namespaces we are not using to avoid warnings/crashes
+Capybara:
+  Enabled: false
+FactoryBot:
+  Enabled: false
+RSpecRails:
+  Enabled: false
+
+# Explicitly disable problematic Capybara cop names (old/new namespaces)
+Capybara/RSpec/PredicateMatcher:
+  Enabled: false
