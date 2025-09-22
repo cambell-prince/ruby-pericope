@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Ruby::Pericope::Book do
+RSpec.describe Pericope::Book do
   describe ".find_by_code" do
     it "finds book by exact Paratext code" do
       book = described_class.find_by_code("GEN")

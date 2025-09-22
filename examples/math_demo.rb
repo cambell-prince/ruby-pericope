@@ -3,7 +3,7 @@
 
 # Demonstration of Pericope Math and Set Operations
 
-require_relative "../lib/ruby/pericope"
+require_relative "../lib/pericope"
 
 puts "Ruby Pericope Library - Phase 3 Demonstration"
 puts "=" * 50
@@ -12,10 +12,10 @@ puts "=" * 50
 puts "\n1. Creating Example Pericopes"
 puts "-" * 30
 
-pericope1 = Ruby::Pericope::Pericope.new("GEN 1:1-10")
-pericope2 = Ruby::Pericope::Pericope.new("GEN 1:5-15")
-pericope3 = Ruby::Pericope::Pericope.new("GEN 1:1,3,5-7,10")
-pericope4 = Ruby::Pericope::Pericope.new("GEN 1:20-25")
+pericope1 = Pericope::Pericope.new("GEN 1:1-10")
+pericope2 = Pericope::Pericope.new("GEN 1:5-15")
+pericope3 = Pericope::Pericope.new("GEN 1:1,3,5-7,10")
+pericope4 = Pericope::Pericope.new("GEN 1:20-25")
 
 puts "Pericope 1: #{pericope1} (#{pericope1.verse_count} verses)"
 puts "Pericope 2: #{pericope2} (#{pericope2.verse_count} verses)"
@@ -86,7 +86,7 @@ puts "Pericope 1 intersects Pericope 4: #{pericope1.intersects?(pericope4)}"
 # Pericope 1 intersects Pericope 4: false
 
 puts "\n3.2 Containment Tests:"
-small_pericope = Ruby::Pericope::Pericope.new("GEN 1:3-7")
+small_pericope = Pericope::Pericope.new("GEN 1:3-7")
 puts "Pericope 1 contains GEN 1:3-7: #{pericope1.contains?(small_pericope)}"
 puts "GEN 1:3-7 contains Pericope 1: #{small_pericope.contains?(pericope1)}"
 # Expected Output:
@@ -97,8 +97,8 @@ puts "\n3.3 Positional Tests:"
 puts "Pericope 1 precedes Pericope 4: #{pericope1.precedes?(pericope4)}"
 puts "Pericope 4 follows Pericope 1: #{pericope4.follows?(pericope1)}"
 
-adjacent1 = Ruby::Pericope::Pericope.new("GEN 1:1-5")
-adjacent2 = Ruby::Pericope::Pericope.new("GEN 1:6-10")
+adjacent1 = Pericope::Pericope.new("GEN 1:1-5")
+adjacent2 = Pericope::Pericope.new("GEN 1:6-10")
 puts "GEN 1:1-5 adjacent to GEN 1:6-10: #{adjacent1.adjacent_to?(adjacent2)}"
 # Expected Output:
 # Pericope 1 precedes Pericope 4: true
@@ -128,7 +128,7 @@ puts "#{pericope1} - #{pericope2} = #{subtract_result}"
 # GEN 1:1-10 - GEN 1:5-15 = GEN 1:1-4
 
 puts "\n4.4 Normalization:"
-messy_pericope = Ruby::Pericope::Pericope.new("GEN 1:1-3,4-6,7")
+messy_pericope = Pericope::Pericope.new("GEN 1:1-3,4-6,7")
 normalized = messy_pericope.normalize
 puts "#{messy_pericope} normalized = #{normalized}"
 # Expected Output:
@@ -147,8 +147,8 @@ puts "#{pericope1} contracted by (2,2) = #{contracted}"
 # GEN 1:1-10 contracted by (2,2) = GEN 1:3-8
 
 puts "\n4.7 Complement Operation:"
-small_range = Ruby::Pericope::Pericope.new("GEN 1:1-5")
-scope = Ruby::Pericope::Pericope.new("GEN 1:1-10")
+small_range = Pericope::Pericope.new("GEN 1:1-5")
+scope = Pericope::Pericope.new("GEN 1:1-10")
 complement = small_range.complement(scope)
 puts "Complement of #{small_range} within #{scope} = #{complement}"
 # Expected Output:
@@ -158,8 +158,8 @@ puts "Complement of #{small_range} within #{scope} = #{complement}"
 puts "\n5. Complex Example: Sermon Planning"
 puts "-" * 40
 
-sermon_text = Ruby::Pericope::Pericope.new("GEN 1:1-5,10-15,20-25")
-additional_verses = Ruby::Pericope::Pericope.new("GEN 1:6-9")
+sermon_text = Pericope::Pericope.new("GEN 1:1-5,10-15,20-25")
+additional_verses = Pericope::Pericope.new("GEN 1:6-9")
 
 puts "Original sermon text: #{sermon_text}"
 puts "Additional verses to consider: #{additional_verses}"
