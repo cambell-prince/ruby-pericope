@@ -5,7 +5,7 @@ require_relative "book"
 require_relative "verse_ref"
 require_relative "errors"
 require_relative "text_processor"
-require_relative "math"
+require_relative "math_operations"
 require_relative "set_operations"
 
 module Pericope
@@ -134,25 +134,25 @@ module Pericope
       @ranges.length
     end
 
-    # Advanced mathematical operations (Phase 3.3) - delegated to Math module
+    # Advanced mathematical operations (Phase 3.3) - delegated to MathOperations module
     def verses_in_chapter(chapter)
-      Math.verses_in_chapter(self, chapter)
+      MathOperations.verses_in_chapter(self, chapter)
     end
 
     def chapters_in_range
-      Math.chapters_in_range(self)
+      MathOperations.chapters_in_range(self)
     end
 
     def density
-      Math.density(self)
+      MathOperations.density(self)
     end
 
     def gaps
-      Math.gaps(self)
+      MathOperations.gaps(self)
     end
 
     def continuous_ranges
-      Math.continuous_ranges(self)
+      MathOperations.continuous_ranges(self)
     end
 
     # Comparison methods (Phase 3.4)
@@ -163,11 +163,11 @@ module Pericope
     end
 
     def intersects?(other)
-      Math.intersects?(self, other)
+      MathOperations.intersects?(self, other)
     end
 
     def contains?(other)
-      Math.contains?(self, other)
+      MathOperations.contains?(self, other)
     end
 
     def overlaps?(other)
@@ -175,18 +175,18 @@ module Pericope
     end
 
     def adjacent_to?(other)
-      Math.adjacent_to?(self, other)
+      MathOperations.adjacent_to?(self, other)
     end
 
     def precedes?(other)
-      Math.precedes?(self, other)
+      MathOperations.precedes?(self, other)
     end
 
     def follows?(other)
-      Math.follows?(self, other)
+      MathOperations.follows?(self, other)
     end
 
-    # Set operations (Pericope Math) - delegated to SetOperations module
+    # Set operations (Pericope MathOperations) - delegated to SetOperations module
     def union(other)
       SetOperations.union(self, other)
     end

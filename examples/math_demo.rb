@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Demonstration of Pericope Math and Set Operations
+# Demonstration of Pericope Math Operations and Set Operations
 
 require_relative "../lib/pericope"
 
@@ -106,7 +106,7 @@ puts "GEN 1:1-5 adjacent to GEN 1:6-10: #{adjacent1.adjacent_to?(adjacent2)}"
 # GEN 1:1-5 adjacent to GEN 1:6-10: true
 
 # Set Operations
-puts "\n4. Set Operations (Pericope Math)"
+puts "\n4. Set Operations"
 puts "-" * 35
 
 puts "\n4.1 Union Operations:"
