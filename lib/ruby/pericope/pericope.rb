@@ -50,13 +50,9 @@ module Ruby
         return "" if @ranges.empty?
 
         case format
-        when :canonical
-          "#{@book.code} #{ranges_to_string}"
         when :full_name
           "#{@book.name} #{ranges_to_string}"
-        when :abbreviated
-          "#{@book.code} #{ranges_to_string}"
-        else
+        else # :canonical, :abbreviated, or any other format
           "#{@book.code} #{ranges_to_string}"
         end
       end

@@ -64,7 +64,7 @@ puts "Single verse? #{pericope1.single_verse?}"
 pericope2 = Ruby::Pericope::Pericope.new("GEN 1:1-3")
 puts "\nVerse range: #{pericope2}"
 puts "Verse count: #{pericope2.verse_count}"
-puts "Verses: #{pericope2.to_a.map(&:to_s).join(', ')}"
+puts "Verses: #{pericope2.to_a.map(&:to_s).join(", ")}"
 
 # Cross-chapter range
 pericope3 = Ruby::Pericope::Pericope.new("GEN 1:30-2:2")
@@ -89,7 +89,8 @@ puts "Abbreviated: #{pericope2.to_s(:abbreviated)}"
 puts "\n4. Text Parsing:"
 puts "-" * 20
 
-text = "In the beginning (GEN 1:1), God created the heavens and earth. Later, Jesus taught about the Beatitudes in MAT 5:3-12."
+text = "In the beginning (GEN 1:1), God created the heavens and earth. " \
+       "Later, Jesus taught about the Beatitudes in MAT 5:3-12."
 pericopes = Ruby::Pericope::Pericope.parse(text)
 
 puts "Text: #{text}"
@@ -132,5 +133,5 @@ old_testament.first(5).each { |book| puts "  #{book.number}. #{book.name} (#{boo
 puts "\nFirst few New Testament books:"
 new_testament.first(5).each { |book| puts "  #{book.number}. #{book.name} (#{book.code})" }
 
-puts "\n" + "=" * 50
+puts "\n#{"=" * 50}"
 puts "Ruby Pericope Library - Examples Complete"

@@ -92,10 +92,8 @@ module Ruby
           VerseRef.new(book, chapter, next_verse_num)
         elsif chapter < book.chapter_count
           VerseRef.new(book, chapter + 1, 1)
-        else
-          # End of book - could return next book's first verse, but for now return nil
-          nil
         end
+        # End of book - could return next book's first verse, but for now return nil
       end
 
       # Get the previous verse
@@ -106,10 +104,8 @@ module Ruby
           prev_chapter = chapter - 1
           last_verse = book.verse_count(prev_chapter)
           VerseRef.new(book, prev_chapter, last_verse)
-        else
-          # Beginning of book - could return previous book's last verse, but for now return nil
-          nil
         end
+        # Beginning of book - could return previous book's last verse, but for now return nil
       end
 
       private

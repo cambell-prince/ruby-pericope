@@ -66,10 +66,8 @@ module Ruby
             BookData::OLD_TESTAMENT_BOOKS.map { |book_info| new(book_info) }
           when :new
             BookData::NEW_TESTAMENT_BOOKS.map { |book_info| new(book_info) }
-          when :deuterocanonical
-            [] # Not implemented yet
           else
-            []
+            [] # Return empty array for deuterocanonical, unknown, or invalid testament
           end
         end
 
