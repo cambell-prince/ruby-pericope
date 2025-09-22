@@ -241,10 +241,17 @@ module Ruby
       def continuous_ranges
         return [] if @ranges.empty?
 
-        # Convert ranges to individual verses and sort them
         verses = to_a.sort
         return [self] if verses.length <= 1
 
+        continuous_groups = group_consecutive_verses(verses)
+        continuous_groups.map { |group| create_pericope_from_group(group) }
+      end
+
+      private
+
+      # Helper method to group consecutive verses together
+      def group_consecutive_verses(verses)
         continuous_groups = []
         current_group = [verses.first]
 
@@ -257,23 +264,32 @@ module Ruby
           end
         end
         continuous_groups << current_group
+        continuous_groups
+      end
 
-        # Convert back to Pericope objects
-        continuous_groups.map do |group|
-          if group.length == 1
-            Pericope.new("#{@book.code} #{group.first.chapter}:#{group.first.verse}")
-          else
-            first_verse = group.first
-            last_verse = group.last
-            if first_verse.chapter == last_verse.chapter
-              Pericope.new("#{@book.code} #{first_verse.chapter}:#{first_verse.verse}-#{last_verse.verse}")
-            else
-              range_str = "#{first_verse.chapter}:#{first_verse.verse}-#{last_verse.chapter}:#{last_verse.verse}"
-              Pericope.new("#{@book.code} #{range_str}")
-            end
-          end
+      # Helper method to create a Pericope from a group of verses
+      def create_pericope_from_group(group)
+        return create_single_verse_pericope(group.first) if group.length == 1
+
+        create_range_pericope(group.first, group.last)
+      end
+
+      # Helper method to create a single verse pericope
+      def create_single_verse_pericope(verse)
+        Pericope.new("#{@book.code} #{verse.chapter}:#{verse.verse}")
+      end
+
+      # Helper method to create a range pericope
+      def create_range_pericope(first_verse, last_verse)
+        if first_verse.chapter == last_verse.chapter
+          Pericope.new("#{@book.code} #{first_verse.chapter}:#{first_verse.verse}-#{last_verse.verse}")
+        else
+          range_str = "#{first_verse.chapter}:#{first_verse.verse}-#{last_verse.chapter}:#{last_verse.verse}"
+          Pericope.new("#{@book.code} #{range_str}")
         end
       end
+
+      public
 
       # Comparison methods (Phase 3.4)
       def ==(other)
