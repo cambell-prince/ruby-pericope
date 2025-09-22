@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description = "A library for parsing and manipulating biblical pericopes and references"
   spec.homepage = "https://github.com/cambell-prince/ruby-pericope"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 3.4.1"
+  spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage

@@ -21,3 +21,6 @@ group :test do
 end
 
 gem "rubocop-rake", "~> 0.7.1"
+
+# Runtime dependencies
+gem "levenshtein", "~> 0.2"
