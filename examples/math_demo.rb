@@ -1,24 +1,16 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# Demonstration of Phase 3 functionality
-# Advanced Mathematical Operations and Set Operations
+# Demonstration of Pericope Math and Set Operations
 
 require_relative "../lib/ruby/pericope"
 
 puts "Ruby Pericope Library - Phase 3 Demonstration"
 puts "=" * 50
-# Expected Output:
-# Ruby Pericope Library - Phase 3 Demonstration
-# ==================================================
 
 # Create some example pericopes
 puts "\n1. Creating Example Pericopes"
 puts "-" * 30
-# Expected Output:
-#
-# 1. Creating Example Pericopes
-# ------------------------------
 
 pericope1 = Ruby::Pericope::Pericope.new("GEN 1:1-10")
 pericope2 = Ruby::Pericope::Pericope.new("GEN 1:5-15")
@@ -35,19 +27,13 @@ puts "Pericope 4: #{pericope4} (#{pericope4.verse_count} verses)"
 # Pericope 3: GEN 1:1,1:3,1:5-7,1:10 (6 verses)
 # Pericope 4: GEN 1:20-25 (6 verses)
 
-# Advanced Mathematical Operations
+# Mathematical Operations
 puts "\n2. Advanced Mathematical Operations"
 puts "-" * 40
-# Expected Output:
-#
-# 2. Advanced Mathematical Operations
-# ----------------------------------------
 
 puts "\n2.1 Verses in Chapter Analysis:"
 puts "Pericope 3 verses in chapter 1: #{pericope3.verses_in_chapter(1)}"
 # Expected Output:
-#
-# 2.1 Verses in Chapter Analysis:
 # Pericope 3 verses in chapter 1: 6
 
 puts "\n2.2 Chapters in Range Breakdown:"
@@ -56,16 +42,12 @@ chapters.each do |chapter, verses|
   puts "Chapter #{chapter}: verses #{verses.join(", ")}"
 end
 # Expected Output:
-#
-# 2.2 Chapters in Range Breakdown:
 # Chapter 1: verses 1, 3, 5, 6, 7, 10
 
 puts "\n2.3 Density Calculations:"
 puts "Pericope 1 density: #{(pericope1.density * 100).round(1)}%"
 puts "Pericope 3 density: #{(pericope3.density * 100).round(1)}%"
 # Expected Output:
-#
-# 2.3 Density Calculations:
 # Pericope 1 density: 32.3%
 # Pericope 3 density: 19.4%
 
@@ -77,8 +59,6 @@ else
   puts "Gaps in pericope 3: #{gaps.map(&:to_s).join(", ")}"
 end
 # Expected Output:
-#
-# 2.4 Gap Identification:
 # Gaps in pericope 3: GEN 1:2, GEN 1:4, GEN 1:8, GEN 1:9
 
 puts "\n2.5 Continuous Range Breakdown:"
@@ -88,8 +68,6 @@ continuous.each_with_index do |range, index|
   puts "  #{index + 1}. #{range} (#{range.verse_count} verses)"
 end
 # Expected Output:
-#
-# 2.5 Continuous Range Breakdown:
 # Pericope 3 broken into continuous ranges:
 #   1. GEN 1:1 (1 verses)
 #   2. GEN 1:3 (1 verses)
@@ -99,17 +77,11 @@ end
 # Comparison Methods
 puts "\n3. Comparison Methods"
 puts "-" * 25
-# Expected Output:
-#
-# 3. Comparison Methods
-# -------------------------
 
 puts "\n3.1 Intersection Tests:"
 puts "Pericope 1 intersects Pericope 2: #{pericope1.intersects?(pericope2)}"
 puts "Pericope 1 intersects Pericope 4: #{pericope1.intersects?(pericope4)}"
 # Expected Output:
-#
-# 3.1 Intersection Tests:
 # Pericope 1 intersects Pericope 2: true
 # Pericope 1 intersects Pericope 4: false
 
@@ -118,8 +90,6 @@ small_pericope = Ruby::Pericope::Pericope.new("GEN 1:3-7")
 puts "Pericope 1 contains GEN 1:3-7: #{pericope1.contains?(small_pericope)}"
 puts "GEN 1:3-7 contains Pericope 1: #{small_pericope.contains?(pericope1)}"
 # Expected Output:
-#
-# 3.2 Containment Tests:
 # Pericope 1 contains GEN 1:3-7: true
 # GEN 1:3-7 contains Pericope 1: false
 
@@ -131,8 +101,6 @@ adjacent1 = Ruby::Pericope::Pericope.new("GEN 1:1-5")
 adjacent2 = Ruby::Pericope::Pericope.new("GEN 1:6-10")
 puts "GEN 1:1-5 adjacent to GEN 1:6-10: #{adjacent1.adjacent_to?(adjacent2)}"
 # Expected Output:
-#
-# 3.3 Positional Tests:
 # Pericope 1 precedes Pericope 4: true
 # Pericope 4 follows Pericope 1: true
 # GEN 1:1-5 adjacent to GEN 1:6-10: true
@@ -140,33 +108,23 @@ puts "GEN 1:1-5 adjacent to GEN 1:6-10: #{adjacent1.adjacent_to?(adjacent2)}"
 # Set Operations
 puts "\n4. Set Operations (Pericope Math)"
 puts "-" * 35
-# Expected Output:
-#
-# 4. Set Operations (Pericope Math)
-# -----------------------------------
 
 puts "\n4.1 Union Operations:"
 union_result = pericope1.union(pericope2)
 puts "#{pericope1} ∪ #{pericope2} = #{union_result}"
 # Expected Output:
-#
-# 4.1 Union Operations:
 # GEN 1:1-10 ∪ GEN 1:5-15 = GEN 1:1-15
 
 puts "\n4.2 Intersection Operations:"
 intersection_result = pericope1.intersection(pericope2)
 puts "#{pericope1} ∩ #{pericope2} = #{intersection_result}"
 # Expected Output:
-#
-# 4.2 Intersection Operations:
 # GEN 1:1-10 ∩ GEN 1:5-15 = GEN 1:5-10
 
 puts "\n4.3 Subtraction Operations:"
 subtract_result = pericope1.subtract(pericope2)
 puts "#{pericope1} - #{pericope2} = #{subtract_result}"
 # Expected Output:
-#
-# 4.3 Subtraction Operations:
 # GEN 1:1-10 - GEN 1:5-15 = GEN 1:1-4
 
 puts "\n4.4 Normalization:"
@@ -174,24 +132,18 @@ messy_pericope = Ruby::Pericope::Pericope.new("GEN 1:1-3,4-6,7")
 normalized = messy_pericope.normalize
 puts "#{messy_pericope} normalized = #{normalized}"
 # Expected Output:
-#
-# 4.4 Normalization:
 # GEN 1:1-3,1:4-6,1:7 normalized = GEN 1:1-7
 
 puts "\n4.5 Range Expansion:"
 expanded = pericope1.expand(2, 3)
 puts "#{pericope1} expanded by (2,3) = #{expanded}"
 # Expected Output:
-#
-# 4.5 Range Expansion:
 # GEN 1:1-10 expanded by (2,3) = GEN 1:1-13
 
 puts "\n4.6 Range Contraction:"
 contracted = pericope1.contract(2, 2)
 puts "#{pericope1} contracted by (2,2) = #{contracted}"
 # Expected Output:
-#
-# 4.6 Range Contraction:
 # GEN 1:1-10 contracted by (2,2) = GEN 1:3-8
 
 puts "\n4.7 Complement Operation:"
@@ -200,17 +152,11 @@ scope = Ruby::Pericope::Pericope.new("GEN 1:1-10")
 complement = small_range.complement(scope)
 puts "Complement of #{small_range} within #{scope} = #{complement}"
 # Expected Output:
-#
-# 4.7 Complement Operation:
 # Complement of GEN 1:1-5 within GEN 1:1-10 = GEN 1:6-10
 
 # Complex Example
 puts "\n5. Complex Example: Sermon Planning"
 puts "-" * 40
-# Expected Output:
-#
-# 5. Complex Example: Sermon Planning
-# ----------------------------------------
 
 sermon_text = Ruby::Pericope::Pericope.new("GEN 1:1-5,10-15,20-25")
 additional_verses = Ruby::Pericope::Pericope.new("GEN 1:6-9")
@@ -218,8 +164,6 @@ additional_verses = Ruby::Pericope::Pericope.new("GEN 1:6-9")
 puts "Original sermon text: #{sermon_text}"
 puts "Additional verses to consider: #{additional_verses}"
 # Expected Output:
-# Original sermon text: GEN 1:1-5,1:10-15,1:20-25
-# Additional verses to consider: GEN 1:6-9
 
 # Check if they're adjacent
 if sermon_text.adjacent_to?(additional_verses)
@@ -259,8 +203,3 @@ end
 puts "\n#{"=" * 50}"
 puts "Phase 3 demonstration complete!"
 puts "All advanced mathematical operations and set operations are working!"
-# Expected Output:
-#
-# ==================================================
-# Phase 3 demonstration complete!
-# All advanced mathematical operations and set operations are working!
