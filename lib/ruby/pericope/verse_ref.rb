@@ -83,6 +83,25 @@ module Ruby
         (self <=> other) == 1
       end
 
+      # Comparison operators for use in mathematical operations
+      def <(other)
+        (self <=> other) == -1
+      end
+
+      def >(other)
+        (self <=> other) == 1
+      end
+
+      def <=(other)
+        comparison = self <=> other
+        [-1, 0].include?(comparison)
+      end
+
+      def >=(other)
+        comparison = self <=> other
+        [1, 0].include?(comparison)
+      end
+
       # Get the next verse
       def next_verse
         next_verse_num = verse + 1

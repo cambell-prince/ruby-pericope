@@ -4,6 +4,7 @@ require "set"
 require_relative "book"
 require_relative "verse_ref"
 require_relative "errors"
+require_relative "math_operations"
 
 module Ruby
   module Pericope
@@ -15,6 +16,7 @@ module Ruby
         @versification = versification
         @ranges = []
         parse_reference(reference_string)
+        @math_operations = MathOperations.new(self)
       end
 
       # Parse pericopes from text
@@ -157,11 +159,85 @@ module Ruby
         @ranges.length
       end
 
-      # Comparison
+      # Advanced mathematical operations (Phase 3.3) - delegated to MathOperations
+      def verses_in_chapter(chapter)
+        @math_operations.verses_in_chapter(chapter)
+      end
+
+      def chapters_in_range
+        @math_operations.chapters_in_range
+      end
+
+      def density
+        @math_operations.density
+      end
+
+      def gaps
+        @math_operations.gaps
+      end
+
+      def continuous_ranges
+        @math_operations.continuous_ranges
+      end
+
+      # Comparison methods (Phase 3.4)
       def ==(other)
         return false unless other.is_a?(Pericope)
 
         @book == other.book && @ranges == other.ranges
+      end
+
+      def intersects?(other)
+        @math_operations.intersects?(other)
+      end
+
+      def contains?(other)
+        @math_operations.contains?(other)
+      end
+
+      def overlaps?(other)
+        intersects?(other)
+      end
+
+      def adjacent_to?(other)
+        @math_operations.adjacent_to?(other)
+      end
+
+      def precedes?(other)
+        @math_operations.precedes?(other)
+      end
+
+      def follows?(other)
+        @math_operations.follows?(other)
+      end
+
+      # Set operations (Pericope Math) - delegated to MathOperations
+      def union(other)
+        @math_operations.union(other)
+      end
+
+      def intersection(other)
+        @math_operations.intersection(other)
+      end
+
+      def subtract(other)
+        @math_operations.subtract(other)
+      end
+
+      def complement(scope = nil)
+        @math_operations.complement(scope)
+      end
+
+      def normalize
+        @math_operations.normalize
+      end
+
+      def expand(verses_before = 0, verses_after = 0)
+        @math_operations.expand(verses_before, verses_after)
+      end
+
+      def contract(verses_from_start = 0, verses_from_end = 0)
+        @math_operations.contract(verses_from_start, verses_from_end)
       end
 
       private
@@ -190,34 +266,36 @@ module Ruby
       def parse_ranges(range_text)
         # Split on commas for multiple ranges
         range_parts = range_text.split(",").map(&:strip)
+        current_chapter = nil
 
         range_parts.each do |part|
-          parse_single_range(part)
+          current_chapter = parse_single_range(part, current_chapter)
         end
       end
 
-      def parse_single_range(range_text)
+      def parse_single_range(range_text, current_chapter = nil)
         # Handle different range formats:
         # "1:1" - single verse
         # "1:1-5" - verse range in same chapter
         # "1:1-2:5" - cross-chapter range
+        # "3" - verse in current chapter (when current_chapter is set)
 
         if range_text.include?("-")
           # Range
           start_part, end_part = range_text.split("-", 2).map(&:strip)
-          start_chapter, start_verse = parse_verse_reference(start_part)
+          start_chapter, start_verse = parse_verse_reference(start_part, current_chapter)
 
           if end_part.include?(":")
             # Cross-chapter range like "1:1-2:5"
-            end_chapter, end_verse = parse_verse_reference(end_part)
+            end_chapter, end_verse = parse_verse_reference(end_part, start_chapter)
           else
-            # Same chapter range like "1:1-5"
+            # Same chapter range like "1:1-5" or "5-7" (in current chapter)
             end_chapter = start_chapter
             end_verse = end_part.to_i
           end
         else
           # Single verse
-          start_chapter, start_verse = parse_verse_reference(range_text)
+          start_chapter, start_verse = parse_verse_reference(range_text, current_chapter)
           end_chapter = start_chapter
           end_verse = start_verse
         end
@@ -228,11 +306,18 @@ module Ruby
           end_chapter: end_chapter,
           end_verse: end_verse
         }
+
+        # Return the chapter for context in next iteration
+        start_chapter
       end
 
-      def parse_verse_reference(verse_text)
+      def parse_verse_reference(verse_text, current_chapter = nil)
         if verse_text.include?(":")
           chapter, verse = verse_text.split(":", 2).map(&:to_i)
+        elsif current_chapter
+          # If we have a current chapter context, treat this as a verse in that chapter
+          chapter = current_chapter
+          verse = verse_text.to_i
         else
           # Assume it's just a chapter
           chapter = verse_text.to_i
