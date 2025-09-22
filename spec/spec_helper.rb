@@ -8,7 +8,7 @@ if ENV["COVERAGE"]
   end
 end
 
-require "ruby/pericope"
+require "pericope"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

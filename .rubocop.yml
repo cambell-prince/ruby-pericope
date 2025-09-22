@@ -52,8 +52,8 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Max: 200
   Exclude:
-    - 'lib/ruby/pericope/pericope.rb'        # Main class with comprehensive parsing functionality
-    - 'lib/ruby/pericope/math_operations.rb' # Mathematical operations class with complete feature set
+    - 'lib/pericope/pericope.rb'        # Main class with comprehensive parsing functionality
+    - 'lib/pericope/math_operations.rb' # Mathematical operations class with complete feature set
 
 # Allow larger modules for data modules
 Metrics/ModuleLength:

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/ruby/pericope/version"
+require_relative "lib/pericope/version"
 
 Gem::Specification.new do |spec|
   spec.name = "ruby-pericope"
-  spec.version = Ruby::Pericope::VERSION
+  spec.version = Pericope::VERSION
   spec.metadata["rubygems_mfa_required"] = "true"
   spec.authors = ["Cambell Prince"]
   spec.email = ["cambell.prince@gmail.com"]

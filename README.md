@@ -28,15 +28,15 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ### Basic Book Operations
 
 ```ruby
-require 'ruby/pericope'
+require 'pericope'
 
 # Find books by different methods
-genesis = Ruby::Pericope::Book.find_by_code("GEN")
-matthew = Ruby::Pericope::Book.find_by_name("Matthew")
-corinthians = Ruby::Pericope::Book.find_by_name("1 Corinthians")
+genesis = Pericope::Book.find_by_code("GEN")
+matthew = Pericope::Book.find_by_name("Matthew")
+corinthians = Pericope::Book.find_by_name("1 Corinthians")
 
 # Fuzzy matching for misspelled names
-mathew = Ruby::Pericope::Book.find_by_name("Mathew") # finds "Matthew"
+mathew = Pericope::Book.find_by_name("Mathew") # finds "Matthew"
 
 # Book properties
 puts genesis.name              # "Genesis"
@@ -49,8 +49,8 @@ puts genesis.chapter_count     # 50
 
 ```ruby
 # Create verse references
-verse1 = Ruby::Pericope::VerseRef.new("GEN", 1, 1)
-verse2 = Ruby::Pericope::VerseRef.new("MAT", 5, 3)
+verse1 = Pericope::VerseRef.new("GEN", 1, 1)
+verse2 = Pericope::VerseRef.new("MAT", 5, 3)
 
 puts verse1.to_s              # "GEN 1:1"
 puts verse1.to_i              # 1001001 (BBBCCCVVV format)
@@ -65,17 +65,17 @@ puts verse1.previous_verse    # nil (beginning of book)
 
 ```ruby
 # Single verse
-pericope1 = Ruby::Pericope::Pericope.new("GEN 1:1")
+pericope1 = Pericope::Pericope.new("GEN 1:1")
 puts pericope1.to_s           # "GEN 1:1"
 puts pericope1.verse_count    # 1
 
 # Verse range
-pericope2 = Ruby::Pericope::Pericope.new("GEN 1:1-3")
+pericope2 = Pericope::Pericope.new("GEN 1:1-3")
 puts pericope2.to_s           # "GEN 1:1-3"
 puts pericope2.verse_count    # 3
 
 # Cross-chapter range
-pericope3 = Ruby::Pericope::Pericope.new("GEN 1:30-2:2")
+pericope3 = Pericope::Pericope.new("GEN 1:30-2:2")
 puts pericope3.spans_chapters? # true
 puts pericope3.chapter_count   # 2
 
@@ -113,7 +113,7 @@ puts pericope.to_s(:abbreviated)   # "GEN 1:1-3"
 The library provides advanced mathematical operations for analyzing pericopes:
 
 ```ruby
-pericope = Ruby::Pericope::Pericope.new("MAT 5:1,3,5-10,12")
+pericope = Pericope::Pericope.new("MAT 5:1,3,5-10,12")
 
 # Basic metrics
 puts pericope.verse_count        # 8 (total verses included)
@@ -140,8 +140,8 @@ Pericopes support mathematical set operations for combining and comparing biblic
 
 ```ruby
 # Create two overlapping pericopes
-a = Ruby::Pericope::Pericope.new("MAT 5:1-10")
-b = Ruby::Pericope::Pericope.new("MAT 5:5-15")
+a = Pericope::Pericope.new("MAT 5:1-10")
+b = Pericope::Pericope.new("MAT 5:5-15")
 
 # Union (combine all verses)
 union = a.union(b)               # "MAT 5:1-15"
@@ -168,16 +168,16 @@ contracted = a.contract(1, 2)    # Remove 1 verse from start, 2 from end
 Compare pericopes with various relationship methods:
 
 ```ruby
-a = Ruby::Pericope::Pericope.new("MAT 5:1-5")
-b = Ruby::Pericope::Pericope.new("MAT 5:3-8")
-c = Ruby::Pericope::Pericope.new("MAT 5:6-10")
+a = Pericope::Pericope.new("MAT 5:1-5")
+b = Pericope::Pericope.new("MAT 5:3-8")
+c = Pericope::Pericope.new("MAT 5:6-10")
 
 # Overlap detection
 puts a.intersects?(b)    # true (they share verses 3-5)
 puts a.overlaps?(b)      # true (alias for intersects?)
 
 # Containment
-puts a.contains?(Ruby::Pericope::Pericope.new("MAT 5:2-4"))  # true
+puts a.contains?(Pericope::Pericope.new("MAT 5:2-4"))  # true
 
 # Adjacency and ordering
 puts a.adjacent_to?(c)   # true (5:5 is next to 5:6)
@@ -195,8 +195,8 @@ rescue Ruby::Pericope::InvalidBookError => e
 end
 
 begin
-  Ruby::Pericope::VerseRef.new("GEN", 0, 1)
-rescue Ruby::Pericope::InvalidChapterError => e
+  Pericope::VerseRef.new("GEN", 0, 1)
+rescue Pericope::InvalidChapterError => e
   puts e.message # "Invalid chapter 0 for book GEN"
 end
 ```

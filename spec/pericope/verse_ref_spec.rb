@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Ruby::Pericope::VerseRef do
-  let(:genesis) { Ruby::Pericope::Book.find_by_code("GEN") }
-  let(:matthew) { Ruby::Pericope::Book.find_by_code("MAT") }
+RSpec.describe Pericope::VerseRef do
+  let(:genesis) { Pericope::Book.find_by_code("GEN") }
+  let(:matthew) { Pericope::Book.find_by_code("MAT") }
 
   describe "#initialize" do
     it "creates a verse reference with book object" do
@@ -26,18 +26,18 @@ RSpec.describe Ruby::Pericope::VerseRef do
     end
 
     it "raises InvalidBookError for invalid book" do
-      expect { described_class.new("INVALID", 1, 1) }.to raise_error(Ruby::Pericope::InvalidBookError)
-      expect { described_class.new(nil, 1, 1) }.to raise_error(Ruby::Pericope::InvalidBookError)
+      expect { described_class.new("INVALID", 1, 1) }.to raise_error(Pericope::InvalidBookError)
+      expect { described_class.new(nil, 1, 1) }.to raise_error(Pericope::InvalidBookError)
     end
 
     it "raises InvalidChapterError for invalid chapter" do
-      expect { described_class.new(genesis, 0, 1) }.to raise_error(Ruby::Pericope::InvalidChapterError)
-      expect { described_class.new(genesis, -1, 1) }.to raise_error(Ruby::Pericope::InvalidChapterError)
+      expect { described_class.new(genesis, 0, 1) }.to raise_error(Pericope::InvalidChapterError)
+      expect { described_class.new(genesis, -1, 1) }.to raise_error(Pericope::InvalidChapterError)
     end
 
     it "raises InvalidVerseError for invalid verse" do
-      expect { described_class.new(genesis, 1, 0) }.to raise_error(Ruby::Pericope::InvalidVerseError)
-      expect { described_class.new(genesis, 1, -1) }.to raise_error(Ruby::Pericope::InvalidVerseError)
+      expect { described_class.new(genesis, 1, 0) }.to raise_error(Pericope::InvalidVerseError)
+      expect { described_class.new(genesis, 1, -1) }.to raise_error(Pericope::InvalidVerseError)
     end
   end
 

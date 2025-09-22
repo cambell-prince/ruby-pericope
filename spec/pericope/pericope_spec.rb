@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Ruby::Pericope::Pericope do
+RSpec.describe Pericope::Pericope do
   describe "#initialize" do
     it "parses a simple verse reference" do
       pericope = described_class.new("GEN 1:1")
@@ -24,12 +24,12 @@ RSpec.describe Ruby::Pericope::Pericope do
     end
 
     it "raises ParseError for empty reference" do
-      expect { described_class.new("") }.to raise_error(Ruby::Pericope::ParseError)
-      expect { described_class.new(nil) }.to raise_error(Ruby::Pericope::ParseError)
+      expect { described_class.new("") }.to raise_error(Pericope::ParseError)
+      expect { described_class.new(nil) }.to raise_error(Pericope::ParseError)
     end
 
     it "raises InvalidBookError for invalid book" do
-      expect { described_class.new("INVALID 1:1") }.to raise_error(Ruby::Pericope::InvalidBookError)
+      expect { described_class.new("INVALID 1:1") }.to raise_error(Pericope::InvalidBookError)
     end
 
     it "handles book names with flexible matching" do
@@ -100,7 +100,7 @@ RSpec.describe Ruby::Pericope::Pericope do
       verses = pericope.to_a
 
       expect(verses.length).to eq(1)
-      expect(verses[0]).to be_a(Ruby::Pericope::VerseRef)
+      expect(verses[0]).to be_a(Pericope::VerseRef)
       expect(verses[0].to_s).to eq("GEN 1:1")
     end
 
