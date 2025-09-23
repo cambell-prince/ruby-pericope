@@ -51,9 +51,6 @@ Metrics/MethodLength:
 # Allow larger classes for data-heavy classes
 Metrics/ClassLength:
   Max: 200
-  Exclude:
-    - 'lib/pericope/pericope.rb'        # Main class with comprehensive parsing functionality
-    - 'lib/pericope/math_operations.rb' # Mathematical operations class with complete feature set
 
 # Allow larger modules for data modules
 Metrics/ModuleLength:
