@@ -3,11 +3,11 @@
 require_relative "lib/pericope/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "ruby-pericope"
+  spec.name = "rev79-pericope"
   spec.version = Pericope::VERSION
   spec.metadata["rubygems_mfa_required"] = "true"
   spec.authors = ["Cambell Prince"]
-  spec.email = ["cambell.prince@gmail.com"]
+  spec.email = ["cambell_prince@sil.org"]
 
   spec.summary = "A Ruby gem for handling pericopes"
   spec.description = "A library for parsing and manipulating biblical pericopes and references"
