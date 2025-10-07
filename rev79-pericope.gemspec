@@ -11,14 +11,14 @@ Gem::Specification.new do |spec|
 
   spec.summary = "A Ruby gem for handling pericopes"
   spec.description = "A library for parsing and manipulating biblical pericopes and references"
-  spec.homepage = "https://github.com/cambell-prince/ruby-pericope"
+  spec.homepage = "https://github.com/cambell-prince/rev79-pericope"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/cambell-prince/ruby-pericope"
-  spec.metadata["changelog_uri"] = "https://github.com/cambell-prince/ruby-pericope/blob/main/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/cambell-prince/rev79-pericope"
+  spec.metadata["changelog_uri"] = "https://github.com/cambell-prince/rev79-pericope/blob/main/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

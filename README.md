@@ -1,4 +1,4 @@
-# Ruby::Pericope
+# Rev79::Pericope
 
 A Ruby library for parsing, manipulating, and working with biblical references (pericopes). This library provides comprehensive support for biblical book recognition, verse reference handling, and pericope parsing with flexible input formats.
 
@@ -17,11 +17,11 @@ A Ruby library for parsing, manipulating, and working with biblical references (
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add ruby-pericope
+    $ bundle add rev79-pericope
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install ruby-pericope
+    $ gem install rev79-pericope
 
 ## Usage
 
@@ -80,7 +80,7 @@ puts pericope3.spans_chapters? # true
 puts pericope3.chapter_count   # 2
 
 # Multiple ranges
-pericope4 = Ruby::Pericope::Pericope.new("GEN 1:1,3,5")
+pericope4 = Pericope::Pericope.new("GEN 1:1,3,5")
 puts pericope4.range_count     # 3
 ```
 
@@ -88,7 +88,7 @@ puts pericope4.range_count     # 3
 
 ```ruby
 text = "In the beginning (GEN 1:1), God created. Later, Jesus taught (MAT 5:3-12)."
-pericopes = Ruby::Pericope::Pericope.parse(text)
+pericopes = Pericope::Pericope.parse(text)
 
 pericopes.each do |pericope|
   puts "#{pericope} (#{pericope.verse_count} verses)"
@@ -101,7 +101,7 @@ end
 ### Output Formats
 
 ```ruby
-pericope = Ruby::Pericope::Pericope.new("GEN 1:1-3")
+pericope = Pericope::Pericope.new("GEN 1:1-3")
 
 puts pericope.to_s(:canonical)    # "GEN 1:1-3"
 puts pericope.to_s(:full_name)     # "Genesis 1:1-3"
@@ -189,8 +189,8 @@ puts c.follows?(a)       # true (c comes after a)
 
 ```ruby
 begin
-  Ruby::Pericope::Pericope.new("INVALID 1:1")
-rescue Ruby::Pericope::InvalidBookError => e
+  Pericope::Pericope.new("INVALID 1:1")
+rescue Pericope::InvalidBookError => e
   puts e.message # "Invalid book: 'INVALID'"
 end
 
@@ -206,7 +206,7 @@ end
 For more comprehensive examples and demonstrations, see the [examples directory](examples/):
 
 - [Basic Usage Examples](examples/basic_usage.rb) - Fundamental operations and common use cases
-- [Advanced Features Demo](examples/phase3_demo.rb) - Mathematical operations, set operations, and comparisons
+- [Advanced Features Demo](examples/math_demo.rb) - Mathematical operations, set operations, and comparisons
 
 ## Development
 
@@ -250,7 +250,7 @@ bundle exec rake doc
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/cambell-prince/ruby-pericope. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/cambell-prince/ruby-pericope/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/cambell-prince/rev79-pericope. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/cambell-prince/rev79-pericope/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -258,4 +258,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Ruby::Pericope project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/cambell-prince/ruby-pericope/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Rev79::Pericope project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/cambell-prince/rev79-pericope/blob/main/CODE_OF_CONDUCT.md).
