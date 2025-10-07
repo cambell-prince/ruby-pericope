@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-pericope (0.1.0)
+    rev79-pericope (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -80,11 +80,11 @@ DEPENDENCIES
   levenshtein (~> 0.2)
   pry (~> 0.14)
   rake (~> 13.0)
+  rev79-pericope!
   rspec (~> 3.0)
   rubocop (~> 1.21)
   rubocop-rake (~> 0.7.1)
   rubocop-rspec (~> 3.7)
-  ruby-pericope!
   simplecov (~> 0.22)
   yard (~> 0.9)
 
